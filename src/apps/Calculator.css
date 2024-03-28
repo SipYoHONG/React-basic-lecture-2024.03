@@ -1,0 +1,69 @@
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .calculator {
+    width: 250px; /* 적당한 폭으로 계산기 크기 조정 */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .result {
+    background-color: #f9f9f9;
+    font-size: 1.5em; /* 결과 표시 크기 */
+    padding: 20px;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4개의 열 */
+    grid-gap: 1px; /* 버튼 사이의 간격 */
+  }
+  
+  button {
+    background-color: #fff;
+    border: 2px solid #f4f4f4;
+    font-size: 1.2em;
+    padding: 20px 0;
+    cursor: pointer;
+  }
+  
+  /* 특정 버튼에 대한 클래스명을 적용 */
+  .button-div {
+    background-color: #f6f6f6;
+  }
+  
+  .button-equal {
+    background-color: #f0f0f0;
+    grid-row: span 2; /* '=' 버튼이 두 행 차지 */
+  }
+  
+  .button-zero {
+    background-color: #f6f6f6;
+    grid-column: span 2; /* '0' 버튼이 두 열 차지 */
+  }
+  
+  .button-operator {
+    background-color: #e8e8e8;
+  }
+  
+  /* 눌렀을 때의 상호작용 스타일 */
+  button:active {
+    background-color: #dedede;
+  }
+  
+  /* 미디어 쿼리를 통해 작은 화면에서의 레이아웃 조정 */
+  @media (max-width: 600px) {
+    .calculator {
+      width: 90%; /* 화면 크기에 따라 너비 조정 */
+      max-width: 300px;
+    }
+  }
