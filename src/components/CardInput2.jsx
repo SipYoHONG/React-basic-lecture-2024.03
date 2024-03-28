@@ -17,11 +17,11 @@ export default function CardInput2(props) {
             <h3>{form.email}</h3>
             <br />
             <form onSubmit={handleSubmit}>
-                <label>이름:</label>
+                <label htmlFor='name'>이름:</label>
                 <input type='text' id='name' name='name' value={form.name} 
                     onChange={handleChange}
                 /><br />
-                <label>이메일:</label>
+                <label htmlFor='email'>이메일:</label>
                 <input type='text' id='email' name='email' value={form.email} 
                     onChange={handleChange}
                 /><br />
