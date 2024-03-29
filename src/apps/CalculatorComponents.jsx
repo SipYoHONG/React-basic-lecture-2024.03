@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useEffect를 추가
 import './Calculator.css';
 
 function App() {
   const [calculation, setCalculation] = useState('');
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if ((event.key >= '0' && event.key <= '9') || "/*-+.".includes(event.key)) {
+        handleButtonClick(event.key);
+      }
+      if (event.key === 'Enter') {
+        calculateResult();
+      }
+      if (event.key === 'Escape') {
+        clearCalculation();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [calculation]); 
+  
   const handleButtonClick = (value) => {
     setCalculation((prev) => prev + value);
   };
 
   const calculateResult = () => {
     try {
-      setCalculation(eval(calculation).toString());
+      const safeEval = (fn) => {
+        return new Function('return ' + fn)();
+      };
+      setCalculation(safeEval(calculation).toString());
     } catch (error) {
       setCalculation('Error');
     }
   };
+  
   const clearCalculation = () => {
     setCalculation('');
   };
@@ -48,6 +72,6 @@ function App() {
         </div>
       </div>
     );
-  }
+}
   
 export default App;
