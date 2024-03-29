@@ -1,25 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../apps/App.css';
+import AddTodo from './AddTodo';
+import Todo from './Todo';
 
-export default function Todolist() {
-    const [todos, setTodos] = useState ([
-        {id:'1234', work:'공부하기', status:'active'},
-        {id:'4567', work:'청소', status:'active'},
-    ]);
-    return (
-        <div>
-            <ul>
-                {
-                    todos.map(todo => (
-                        <li>
-                            <input type='checkbox' id={todo.id} checked={todo.status === 'completed'}
-                            onChange={handlechange} />
-                            <label htmlFor={todo.id}>{todo.work}</label>
-                            <button>삭제 하기</button>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    );
+export default function TodoList({filter}) {
+  const initData = readFromLocalStorage()
+  const [todos, setTodos] = useState(initData);
+  const handleUpdate = updated => 
+    setTodos(todos.map(todo => (todo.id === updated.id) ? updated : todo));
+  const handleDelete = deleted =>
+    setTodos(todos.filter(todo => todo.id !== deleted.id));
+  const handleAdd = todo => setTodos([...todos, todo]);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const filteredTodos = getFilteredTodos(todos, filter);
+  return (
+    <div>
+      <ul>
+        {
+          filteredTodos.map(todo => (
+            <Todo todo={todo} onUpdate={handleUpdate} onDelete={handleDelete} />
+          ))
+        }
+      </ul>
+      <AddTodo onAdd={handleAdd} />
+    </div>
+  );
+}
+
+function readFromLocalStorage() {
+  const todos = localStorage.getItem('todos');
+  console.log(todos);
+  return todos ? JSON.parse(todos) : [];
+}
+
+function getFilteredTodos(todos, filter) {
+  if (filter === 'all')
+    return todos;
+  return todos.filter(todo => todo.status === filter);
 }
