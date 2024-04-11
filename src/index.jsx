@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './apps/App21_router';
+// import App from './apps/App99_exam';
 import reportWebVitals from './reportWebVitals';
+import Template from './mui/Template';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <div style={{marginTop:'40px', marginLeft: '20px', marginRight: '20px', }}>
+      <Template />
+    </div>
   </React.StrictMode>
 );
 
